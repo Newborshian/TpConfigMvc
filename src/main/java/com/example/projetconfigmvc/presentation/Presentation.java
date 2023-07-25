@@ -1,8 +1,7 @@
 package com.example.projetconfigmvc.presentation;
 
-import com.example.projetconfigmvc.config.ConfigurationExplicite;
+import com.example.projetconfigmvc.config.ConfigurationImplicite;
 import com.example.projetconfigmvc.entities.Customer;
-import com.example.projetconfigmvc.service.CustomerService;
 import com.example.projetconfigmvc.service.ServiceImplementation;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -11,7 +10,7 @@ public class Presentation {
     public static void main(String[] args) {
 
         // Initialisations
-        ApplicationContext context = new AnnotationConfigApplicationContext(ConfigurationExplicite.class);
+        ApplicationContext context = new AnnotationConfigApplicationContext(ConfigurationImplicite.class);
         ServiceImplementation serviceImplementation = context.getBean("serviceImplementation", ServiceImplementation.class);
 
         Customer c1 = null;
