@@ -4,27 +4,44 @@ import com.example.projetconfigmvc.config.ConfigurationImplicite;
 import com.example.projetconfigmvc.entities.Customer;
 import com.example.projetconfigmvc.service.ServiceImplementation;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import java.util.List;
 
 public class Presentation {
     public static void main(String[] args) {
+            // we start spring
+            AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ConfigurationImplicite.class);
+            // we ask for bean
+            Customer c = new Customer();
+            Customer c2 = new Customer();
+            Customer c3 = new Customer();
 
-        // Initialisations
-        ApplicationContext context = new AnnotationConfigApplicationContext(ConfigurationImplicite.class);
-        ServiceImplementation serviceImplementation = context.getBean("serviceImplementation", ServiceImplementation.class);
+            c.setName("Bob");
+            c2.setName("Dylan");
+            c3.setName("Mary");
 
-        Customer c1 = null;
-        Customer c2 = new Customer("Albert Einstein");
-        Customer c3 = new Customer("Giordano Bruno");
+            ServiceImplementation s = context.getBean("serviceImplementation", ServiceImplementation.class);
 
-        // Scenario
-       serviceImplementation.addCustomer(c1);
-       serviceImplementation.addCustomer(c2);
-       serviceImplementation.addCustomer(c3);
+            s.addCustomer(c);
+            s.addCustomer(c2);
+            s.addCustomer(c3);
 
-        System.out.println(serviceImplementation.getAllCustomer());
+            // read all customers
+            System.out.println("Les customers du modele implicite sont : ");
+            List<Customer> list = s.getAllCustomer();
+            System.out.println(list);
 
+            System.out.println("Find customer with id 1");
+            Customer validatedCustomer = s.findValidatedCustomer(1);
+            System.out.println(validatedCustomer);
+            validatedCustomer.getName();
+            List<Customer> list2 = s.getAllCustomer();
+            System.out.println("On supprimer customer c. Voici la liste aprés suppression : " + list2);
 
-    }
+            // we free resources
+            ((ConfigurableApplicationContext) context).close();
+        }
 
 }
