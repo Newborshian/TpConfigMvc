@@ -11,7 +11,6 @@ import java.util.Map;
 @Component
 public class MemoryCustomerDAO implements CustomerDAO {
 
-
     private static final Map<Integer, Customer> DB = new HashMap<>();
     private static Integer id =0;
 

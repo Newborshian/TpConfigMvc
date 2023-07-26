@@ -16,14 +16,15 @@ import java.util.List;
 @Component
 public class ServiceImplementation implements CustomerService{
 
+
+
     @Autowired
     private CustomerDAO dao;
 
 
     @Override
     public void addCustomer(Customer c) {
-
-        if (c != null && !c.getName().isEmpty()) {
+        if (c != null && (c.getName() != null && c.getName().isEmpty())) {
             dao.save(c);
         }
     }
@@ -53,4 +54,5 @@ public class ServiceImplementation implements CustomerService{
     public ServiceImplementation(CustomerDAO dao) {
         this.dao = dao;
     }
+
 }
